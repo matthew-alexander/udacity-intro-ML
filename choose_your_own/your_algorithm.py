@@ -31,10 +31,21 @@ plt.show()
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
 
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+
+print("starting to fit")
+clf = GradientBoostingClassifier(n_estimators=1000, learning_rate=1.0, max_depth=1, random_state=0).fit(features_train, labels_train)
 
 
 
+print("done")
 
+predictions = clf.predict(features_test)
+
+from sklearn.metrics import accuracy_score
+
+print(accuracy_score(labels_test, predictions))
 
 
 

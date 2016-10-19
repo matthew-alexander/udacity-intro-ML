@@ -28,7 +28,7 @@ from_chris = open("from_chris.txt", "r")
 
 from_data = []
 word_data = []
-
+reps = ["sara", "shackleton", "chris", "germani"]
 ### temp_counter is a way to speed up the development--there are
 ### thousands of emails from Sara and Chris, so running over all of them
 ### can take a long time
@@ -42,7 +42,7 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
         # temp_counter += 1
-        if temp_counter < 200:
+        if temp_counter < 100:
             path = os.path.join('..', path[:-1])
             print path
             email = open(path, "r")
@@ -51,26 +51,26 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email_txt = parseOutText(email)
 
             ### use str.replace() to remove any instances of the words
-            reps = ["sara", "shackleton", "chris", "germani"]
-            for rep in reps:
-                 email_txt_removed = email_txt.replace(rep, "")
-
+            for word in reps:
+                if(word in email_txt):
+                    parsed_email = email_txt.replace(word, "")
+            
 
             ### append the text to word_data
-            word_data.append(email_txt_removed)
+            word_data.append(parsed_email)
             
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
             if name == "sara":
-                from_data.append("0")
+                from_data.append(0)
             elif name == "chris":
-                from_data.append("1")
+                from_data.append(1)
 
 
             email.close()
 
 print "emails processed"
-print word_data[152]
-print(from_data)
+# print word_data[152]
+# print(from_data)
 
 from_sara.close()
 from_chris.close()
@@ -80,13 +80,13 @@ pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
 ### in Part 4, do TfIdf vectorization here
 
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 # from sklean.feature_extraction import text
 
-vectorizer = CountVectorizer(stop_words='english')
+vectorizer = TfidfVectorizer(stop_words='english')
 vectorizer.fit_transform(word_data)
 vocab_list = vectorizer.get_feature_names()
-print len(vocab_list)
+print "number of words in vocab_list: ", len(vocab_list)
 
 
 

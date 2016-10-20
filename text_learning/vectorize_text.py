@@ -28,7 +28,7 @@ from_chris = open("from_chris.txt", "r")
 
 from_data = []
 word_data = []
-reps = ["sara", "shackleton", "chris", "germani"]
+
 ### temp_counter is a way to speed up the development--there are
 ### thousands of emails from Sara and Chris, so running over all of them
 ### can take a long time
@@ -48,16 +48,18 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
-            email_txt = parseOutText(email)
+            email_txt = str(parseOutText(email))
 
             ### use str.replace() to remove any instances of the words
+            reps = ["sara", "shackleton", "chris", "germani"]
             for word in reps:
-                if(word in email_txt):
+                # print word
+                if word in email_txt:
                     parsed_email = email_txt.replace(word, "")
-            
-
-            ### append the text to word_data
-            word_data.append(parsed_email)
+                    ### append the text to word_data
+                    word_data.append(parsed_email)
+                else: 
+                    word_data.append(email_txt)
             
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
             if name == "sara":
@@ -87,8 +89,4 @@ vectorizer = TfidfVectorizer(stop_words='english')
 vectorizer.fit_transform(word_data)
 vocab_list = vectorizer.get_feature_names()
 print "number of words in vocab_list: ", len(vocab_list)
-
-
-
-
-
+print vocab_list[34597]

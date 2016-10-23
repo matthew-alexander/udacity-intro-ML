@@ -35,24 +35,14 @@ def parseOutText(f):
         ### space between each stemmed word)
 
         stemmer = SnowballStemmer("english")
-        words = text_string.split()
+        word_list = text_string.split()
         stems = []
-        for word in words:
+        for word in word_list:
             stem = stemmer.stem(word)
-            stems.append(stem)
+            words = words + " " + stem
         
-        ### making a sentence out of the list of words
-        ###stem_string = ""
-        stem_string =  ' '.join(stem for stem in stems)
-
-        ###print stem_string
        
-  
-
-
-
-
-    return stem_string
+    return words
 
     
 

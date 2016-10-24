@@ -51,8 +51,8 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email_txt = parseOutText(email)
 
             ### use str.replace() to remove any instances of the words
-            reps = ["sara", "shackleton", "chris", "germani"]
-            # list_rep  = ["sara", "shackleton", "chris", "germani","sshacklensf","cgermannsf"]
+            #reps = ["sara", "shackleton", "chris", "germani"]
+            reps  = ["sara", "shackleton", "chris", "germani","sshacklensf", "cgermannsf"]
             for word in reps:
                 email_txt = email_txt.replace(word, '')
                     ### append the text to word_data
@@ -90,3 +90,5 @@ pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 # vocab_list = vectorizer.get_feature_names()
 # print "number of words in vocab_list: ", len(vocab_list)
 # print vocab_list[34597]
+# vectorizer.get_feature_names()[33614] 
+# print vocab_list[33614]

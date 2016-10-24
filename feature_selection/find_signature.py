@@ -12,7 +12,7 @@ authors_file = "../text_learning/your_email_authors.pkl"
 word_data = pickle.load( open(words_file, "r"))
 authors = pickle.load( open(authors_file, "r") )
 
-print authors
+#print authors
 ### test_size is the percentage of events assigned to the test set (the
 ### remainder go into training)
 ### feature matrices changed to dense representations for compatibility with
@@ -38,9 +38,9 @@ from time import time
 
 cls = DecisionTreeClassifier(min_samples_split=40) #min_samples_split = 40
 
-t0 = time()
+
 cls.fit(features_train, labels_train)
-print "fitting time: " , round(time()-t0, 3)
+
 
 # pred = cls.predict(features_test, labels_test)
 
@@ -52,3 +52,19 @@ pred=cls.predict(features_test,labels_test)
 acc=accuracy_score(labels_test,pred)
 
 print acc
+
+feature_list = cls.feature_importances_.tolist()
+most_valuable_feature= max(feature_list)
+print most_valuable_feature
+max_index = feature_list.index(most_valuable_feature)
+print max_index
+
+
+print cls.feature_importances_.argmax()
+print vectorizer.get_feature_names()[cls.feature_importances_.argmax()]
+
+for counter, importance in enumerate(cls.feature_importances_):
+    if importance > 0.2:
+        print "Counter and importance ", counter, " - ", importance, " ", vectorizer.get_feature_names()[counter]
+
+
